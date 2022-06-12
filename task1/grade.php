@@ -45,8 +45,7 @@
                     <?php 
                     // ($_POST);
 
-                    if($_POST){
-                        $sub1 = $_POST['Chemistry'];
+                    cc
                         $sub2 = $_POST['Biology'];
                         $sub3 = $_POST['Mathematics'];
                         $sub4 = $_POST['computer'];
