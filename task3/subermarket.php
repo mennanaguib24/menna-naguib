@@ -2,12 +2,16 @@
 if ($_POST) {
     $username = $_POST['username'];
     $varieties = $_POST['varieties'];
+
+}
+
+    
     // $city = $_POST['city'];
     // $city = $_POST['city'];
     
 
    
-}
+
 
 
 
@@ -73,7 +77,10 @@ if ($_POST) {
                     </div>
 
 
-                    <button class=" btn btn-outline-primary form-control" type="submit"> enter product </button>
+                    <button class=" btn btn-outline-primary form-control" type="submit" name="enterproduct"> enter product </button>
+                    <?php if(isset($_POST['enterproduct'])){
+                    ?>
+                    
                     <br>
                     <br>
 
@@ -93,17 +100,19 @@ if ($_POST) {
                         </thead>
                         <tbody>
                             <?php
-                        if(isset($_POST['varieties']))
+                        if(isset($_POST['varieties'])){
                         
                         for ($varietie=1; $varietie <= $_POST['varieties']; $varietie++){
 
                          ?>
                             <tr>
-                                <td><input type="text" name="productname <?= $varietie ?>" value="<?= $_POST['productname'.$varietie] ?? ''?>"></td>
-                                <td><input type="number" name="Price<?= $varietie ?>"value="<?= $POST['Price' .$varietie] ?? ''?>"></td>
-                                <td><input type=" number" name="Quantitiy <?= $varietie ?>"value="<?= $POST['Quantitiy' .$varietie] ?? ''?>"></td>
+                                <td><input type="text" name="productname<?= $varietie ?>"></td>
+                                <td><input type="number" name="Price<?= $varietie ?>"></td>
+                                <td><input type="number" name="Q1<?= $varietie ?>"></td>
 
                             </tr>
+                            <?php } ?>
+                            <?php } ?>
                             <?php } ?>
                         </tbody>
                         
@@ -111,7 +120,7 @@ if ($_POST) {
                     </table>  
                     <button class=" btn btn-outline-primary form-control" type="submit" name="recipt"> recipt </button>
                     <?php } ?>
-<!-- 
+
                     <?php
                     
                         if(isset($_POST['recipt'])){
@@ -125,27 +134,103 @@ if ($_POST) {
                                 <th scope="col" style="text-align: center;" >product name</th>
                                 <th scope="col" style="text-align: center;">price</th>
                                 <th scope="col" style="text-align: center;">Quantities</th>
+                                <th scope="col" style="text-align: center;">sub total</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>hjg,</td>
-                                <td>fdgd</td>
-                                <td>fg</td>
+                        <?php
+                        if(isset($_POST['varieties'])){
+                            $total = 0;
+
+                        
+                        for ($varietie=1; $varietie <= $_POST['varieties']; $varietie++){
+
+
+
+
+                                $subtotal= $_POST['Q1'.$varietie] * $_POST['Price'.$varietie];
+                                $total += $subtotal;
+                              if ($total < 1000) {
+                                $discount = 0;
+                              }elseif ($total > 1000 && $total < 3000) {
+                                $discount = 0.1;
+                              }elseif ($total > 3000 && $total < 4500) {
+                                $discount = 0.15;
+                              }elseif ($total > 4500) {
+                                $discount = 0.20;
+                              }
+                              $discountperpound = $total * $discount;
+                              $totalafterdiscount = $total -  $discountperpound;
+                              
+
+                            if($_POST['city'] =='cairo') {
+                                $delivery = 0;
+                            }elseif($_POST['city'] =='giza') {
+                                $delivery = 30;
+
+                            }elseif($_POST['city'] =='alex') {
+                                $delivery = 50;
+                            }else{
+                                $delivery = 100;
+                            }
+
+                            $nettotal = $totalafterdiscount +  $delivery;
+
+                         ?>
+
+                         
+                            
+                            <tr style="text-align: center;">
+                                <td><?= $_POST['productname'.$varietie]?></td>
+                                <td><?= $_POST['Price'.$varietie]?></td>
+                                <td><?= $_POST['Q1'.$varietie]?></td>
+                                <td><?= $_POST['Q1'.$varietie] * $_POST['Price'.$varietie]?></td>
+                                <td></td>
+                                
 
                             </tr>
                             <?php } ?>
+                            <br>
+                            <br>
+
+                            <tr>
+                            <td>client name</td>
+                            <td><?= $_POST['username']?></td>
+                        </tr>
+                        <tr>
+                            <td>city</td>
+                            <td><?= $_POST['city']?></td>
+                        </tr>
+                        <tr>
+                            <td>total</td>
+                            
+                            <td><?= $total?></td>
+                        </tr>
+                        <tr>
+                            <td>discount</td>
+                            <td><?=  $discountperpound?> <b>EGP<b></td>
+                        </tr>
+                        <tr>
+                            <td>total after discount</td>
+                            <td><?= $totalafterdiscount ?></td>
+                        </tr>
+                        <tr>
+                            <td>delivery</td>
+                            <td><?= $delivery ?></td>
+                        </tr>
+                        <tr>
+                            <td>net total</td>
+                            <td><?= $nettotal ?></td>
+                        </tr>
+                            <?php } ?>
+                            <?php } ?>
                         </tbody>
-                        
-
-                    </table>  -->
+                        </table>
+                    </table> 
                     
-
                         
-
-
-
-
+                        
+       
 
 
 
