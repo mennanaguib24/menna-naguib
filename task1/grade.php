@@ -43,9 +43,8 @@
                     <button class=" btn btn-outline-primary form-control"> submit </button>
                 
                     <?php 
-                    // ($_POST);
-
-                    cc
+                    if($_POST){
+                        $sub1 = $_POST['Chemistry'];
                         $sub2 = $_POST['Biology'];
                         $sub3 = $_POST['Mathematics'];
                         $sub4 = $_POST['computer'];
@@ -68,7 +67,8 @@
                             echo "please enter correct numbers";
                         }
                 }
-
+                
+            
 
 
                     
